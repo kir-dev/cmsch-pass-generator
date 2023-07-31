@@ -11,3 +11,9 @@ yarn-error.log*
 
 /.idea
 .vscode
+templates/*
+!templates/example
+!templates/schema.json
+gen/
+certs/
+.env

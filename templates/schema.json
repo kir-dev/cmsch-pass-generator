@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the event."
+    },
+    "foregroundColor": {
+      "type": "string",
+      "description": "The foreground color of the event in the format 'rgb(r,g,b)' where r, g, and b are integers in the range [0, 255]."
+    },
+    "labelColor": {
+      "type": "string",
+      "description": "The label color of the event in the format 'rgb(r,g,b)' where r, g, and b are integers in the range [0, 255]."
+    },
+    "backgroundColor": {
+      "type": "string",
+      "description": "The background color of the event in the format 'rgb(r,g,b)' where r, g, and b are integers in the range [0, 255]."
+    }
+  },
+  "required": ["name", "foregroundColor", "labelColor", "backgroundColor"]
+}
