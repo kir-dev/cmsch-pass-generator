@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common'
 
-import { TemplateService } from '../template/template.service'
+import { TemplateModule } from '../template/template.module'
 import { AppleController } from './apple.controller'
-import { AppleService } from './apple.service';
+import { AppleService } from './apple.service'
 
 @Module({
+  imports: [TemplateModule],
   controllers: [AppleController],
-  providers: [TemplateService, AppleService],
+  providers: [AppleService],
 })
 export class AppleModule {}

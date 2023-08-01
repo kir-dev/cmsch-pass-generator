@@ -18,6 +18,10 @@ export class TemplateService {
     })
   }
 
+  getTemplates(): Template[] {
+    return this.templates
+  }
+
   getTemplateForId(id: string): Template | undefined {
     return this.templates.find(template => template.id === id)
   }

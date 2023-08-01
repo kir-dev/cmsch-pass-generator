@@ -1,7 +1,0 @@
-{
-  "$schema": "../schema.json",
-  "name": "Example Event",
-  "foregroundColor": "rgb(255,255,255)",
-  "labelColor": "rgb(255,255,255)",
-  "backgroundColor": "rgb(0,0,0)"
-}

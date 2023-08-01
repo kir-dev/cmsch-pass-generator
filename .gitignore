@@ -12,8 +12,8 @@ yarn-error.log*
 /.idea
 .vscode
 templates/*
-!templates/example
+!templates/cmsch-event
 !templates/schema.json
 gen/
-certs/
+creds/
 .env

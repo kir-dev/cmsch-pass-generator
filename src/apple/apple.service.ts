@@ -59,9 +59,9 @@ export class AppleService {
 
   private loadCerts() {
     return {
-      wwdr: fs.readFileSync(path.resolve(__dirname, '../../certs/wwdr.pem')),
-      signerCert: fs.readFileSync(path.resolve(__dirname, '../../certs/signerCert.pem')),
-      signerKey: fs.readFileSync(path.resolve(__dirname, '../../certs/signerKey.pem')),
+      wwdr: fs.readFileSync(path.resolve(__dirname, '../../creds/wwdr.pem')),
+      signerCert: fs.readFileSync(path.resolve(__dirname, '../../creds/signerCert.pem')),
+      signerKey: fs.readFileSync(path.resolve(__dirname, '../../creds/signerKey.pem')),
       signerKeyPassphrase: PASSPHRASE,
     }
   }
