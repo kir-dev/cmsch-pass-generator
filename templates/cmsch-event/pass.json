@@ -1,7 +1,7 @@
 {
   "$schema": "../schema.json",
   "name": "CMSch Event",
-  "foregroundColor": "rgb(255,255,255)",
-  "labelColor": "rgb(120,120,120)",
-  "backgroundColor": "rgb(22,25,31)"
+  "foregroundColor": "#ffffff",
+  "labelColor": "#787878",
+  "backgroundColor": "#16191F"
 }

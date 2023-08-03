@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer'
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsHexColor, IsNotEmpty, IsString } from 'class-validator'
 
 export class Template {
   @IsString()
@@ -12,14 +12,17 @@ export class Template {
   name: string
   @IsString()
   @IsNotEmpty()
+  @IsHexColor()
   @Expose()
   foregroundColor: string
   @IsString()
   @IsNotEmpty()
+  @IsHexColor()
   @Expose()
   labelColor: string
   @IsString()
   @IsNotEmpty()
+  @IsHexColor()
   @Expose()
   backgroundColor: string
 }

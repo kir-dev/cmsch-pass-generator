@@ -4,6 +4,7 @@ import { PKPass } from 'passkit-generator'
 import * as path from 'path'
 
 import { PassQuery, Template } from '../types/types'
+import { convertHexToRgb } from '../utils/color.utils'
 import { ORG_NAME, PASS_TYPE_IDENTIFIER, PASSPHRASE, TEAM_ID } from '../utils/configuration'
 import generateRandomString from '../utils/randomString'
 
@@ -91,9 +92,9 @@ export class AppleService {
       teamIdentifier: TEAM_ID,
       organizationName: ORG_NAME,
       description: template.name,
-      foregroundColor: template.foregroundColor,
-      labelColor: template.labelColor,
-      backgroundColor: template.backgroundColor,
+      foregroundColor: convertHexToRgb(template.foregroundColor),
+      labelColor: convertHexToRgb(template.labelColor),
+      backgroundColor: convertHexToRgb(template.backgroundColor),
       serialNumber: userId,
     }
   }
