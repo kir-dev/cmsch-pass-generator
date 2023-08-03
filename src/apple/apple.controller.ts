@@ -1,4 +1,5 @@
-import { Controller, Get, Header, NotFoundException, Param, Query, StreamableFile } from '@nestjs/common'
+import { Controller, Get, Logger, NotFoundException, Param, Query, Response, StreamableFile } from '@nestjs/common'
+import { Response as Res } from 'express'
 
 import { TemplateService } from '../template/template.service'
 import { PassQuery } from '../types/types'
@@ -12,11 +13,12 @@ export class AppleController {
   ) {}
 
   @Get(':templateId')
-  @Header('Content-Disposition', 'attachment; filename="pass.pkpass"')
-  async getPass(@Query() query: PassQuery, @Param('templateId') templateId: string) {
+  async getPass(@Response() res: Res, @Query() query: PassQuery, @Param('templateId') templateId: string) {
     const passConfig = this.templateService.getTemplateForId(templateId)
     if (!passConfig) throw new NotFoundException('Template not found')
     const pass = await this.appleService.generatePass(passConfig, query)
+    Logger.log(`Generated pass for template ${passConfig.name}`)
+    res.set('Content-Disposition', 'attachment; filename="pass.pkpass"')
     return new StreamableFile(pass)
   }
 }
