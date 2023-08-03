@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common'
+import * as fs from 'fs'
 import { GoogleAuth } from 'google-auth-library'
 import * as jwt from 'jsonwebtoken'
 import * as path from 'path'
 
 import { GoogleCredentials, PassQuery, Template } from '../types/types'
 import { ISSUER_ID, ORG_NAME, SERVER_BASE_URL } from '../utils/configuration'
-import { rgbToHex } from '../utils/convertRgbToHex'
 
 const KEY_FILE_PATH = path.resolve(__dirname, '../../creds/google.json')
 const BASE_URL = 'https://walletobjects.googleapis.com/walletobjects/v1'
@@ -114,7 +114,7 @@ export class GoogleService {
   }
 
   private generateClass(template: Template, classId: string) {
-    return {
+    const passClass: Record<string, any> = {
       eventId: classId,
       eventName: {
         defaultValue: {
@@ -122,11 +122,16 @@ export class GoogleService {
           value: template.name,
         },
       },
-      logo: { sourceUri: { uri: path.join(SERVER_BASE_URL, template.id, 'icon.png') } },
       id: classId,
       issuerName: ORG_NAME,
       reviewStatus: 'UNDER_REVIEW',
+      heroImage: { sourceUri: { uri: this.getIconUrl(template.id) } },
     }
+    const iconUrl = this.getIconUrl(template.id)
+    if (iconUrl) passClass.logo = { sourceUri: { uri: iconUrl } }
+    const bannerUrl = this.getBannerUrl(template.id)
+    if (bannerUrl) passClass.heroImage = { sourceUri: { uri: bannerUrl } }
+    return passClass
   }
 
   private generateObject(template: Template, objectId: string, classId: string, userName: string, userId: string) {
@@ -135,13 +140,12 @@ export class GoogleService {
       classId: classId,
       state: 'ACTIVE',
       ticketHolderName: userName,
-      textModulesData: [{ header: 'Név', body: userName }],
       barcode: {
         type: 'QR_CODE',
         value: userId,
         alternateText: userId,
       },
-      hexBackgroundColor: rgbToHex(template.backgroundColor),
+      hexBackgroundColor: template.backgroundColor,
     }
   }
 
@@ -151,5 +155,20 @@ export class GoogleService {
       credentials: this.credentials,
       scopes: 'https://www.googleapis.com/auth/wallet_object.issuer',
     })
+  }
+
+  private getIconUrl(templateId: string): string | undefined {
+    const url2x = path.join(SERVER_BASE_URL, templateId, 'icon@2x.png')
+    if (fs.existsSync(url2x)) {
+      return url2x
+    }
+    return path.join(SERVER_BASE_URL, templateId, 'icon.png')
+  }
+
+  private getBannerUrl(templateId: string): string | undefined {
+    const url = path.join(SERVER_BASE_URL, templateId, 'banner.png')
+    if (fs.existsSync(url)) {
+      return url
+    }
   }
 }
