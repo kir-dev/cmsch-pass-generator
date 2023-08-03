@@ -12,11 +12,12 @@ const genFolder = path.resolve(__dirname, '../../gen')
 
 @Injectable()
 export class AppleService {
-  async generatePass(template: Template, { name, userId }: PassQuery) {
+  async generatePass(template: Template, { name, userId, type }: PassQuery) {
+    Logger.log(`Generating pass for template ${template.name} with type ${type ?? 'eventTicket'}`, AppleService.name)
     const certs = this.loadCerts()
     const pass = new PKPass({}, certs, this.getPassProps(template, userId))
 
-    pass.type = 'eventTicket'
+    pass.type = type ?? 'eventTicket'
 
     pass.primaryFields.push({
       key: 'name',
@@ -24,11 +25,13 @@ export class AppleService {
       value: name,
     })
 
-    pass.secondaryFields.push({
-      key: 'eventName',
-      label: 'Esemény',
-      value: template.name,
-    })
+    if (type === 'eventTicket') {
+      pass.secondaryFields.push({
+        key: 'eventName',
+        label: 'Esemény',
+        value: template.name,
+      })
+    }
 
     pass.setBarcodes({
       message: userId,

@@ -1,5 +1,6 @@
 import { Expose } from 'class-transformer'
-import { IsHexColor, IsNotEmpty, IsString } from 'class-validator'
+import { IsHexColor, IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator'
+import { PassTypesProps } from 'passkit-generator/lib/schemas'
 
 export class Template {
   @IsString()
@@ -34,6 +35,10 @@ export class PassQuery {
   @IsString()
   @IsNotEmpty()
   name: string
+  @IsString()
+  @IsOptional()
+  @IsIn(['boardingPass', 'eventTicket', 'coupon', 'generic', 'storeCard'])
+  type: PassTypesProps = 'eventTicket'
 }
 
 export interface GenerateDto {
