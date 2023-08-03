@@ -17,7 +17,7 @@ export class AppleController {
     const passConfig = this.templateService.getTemplateForId(templateId)
     if (!passConfig) throw new NotFoundException('Template not found')
     const pass = await this.appleService.generatePass(passConfig, query)
-    Logger.log(`Generated pass for template ${passConfig.name}`)
+    Logger.log(`Generated pass for template ${passConfig.name}`, AppleController.name)
     res.set('Content-Disposition', 'attachment; filename="pass.pkpass"')
     return new StreamableFile(pass)
   }

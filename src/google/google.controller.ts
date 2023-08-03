@@ -1,4 +1,4 @@
-import { Controller, Get, NotFoundException, Param, Query, Res } from '@nestjs/common'
+import { Controller, Get, Logger, NotFoundException, Param, Query, Res } from '@nestjs/common'
 
 import { TemplateService } from '../template/template.service'
 import { PassQuery } from '../types/types'
@@ -16,6 +16,7 @@ export class GoogleController {
     const passConfig = this.templateService.getTemplateForId(templateId)
     if (!passConfig) throw new NotFoundException('Template not found')
     const url = await this.googleService.generatePass(passConfig, query)
+    Logger.log(`Generated pass for template ${passConfig.name}`, GoogleController.name)
     res.redirect(url)
   }
 }

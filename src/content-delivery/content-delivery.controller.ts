@@ -1,4 +1,4 @@
-import { Controller, Get, Header, Param, StreamableFile } from '@nestjs/common'
+import { Controller, Get, Header, Logger, Param, StreamableFile } from '@nestjs/common'
 
 import { ContentDeliveryService } from './content-delivery.service'
 
@@ -10,6 +10,7 @@ export class ContentDeliveryController {
   @Header('Content-Type', 'image/png')
   getFileForTemplate(@Param('template') template: string, @Param('fileName') fileName: string) {
     const file = this.contentDeliveryService.getFileForTemplate(template, fileName)
+    Logger.log(`Serving ${template}/${fileName}`, ContentDeliveryController.name)
     return new StreamableFile(file)
   }
 }

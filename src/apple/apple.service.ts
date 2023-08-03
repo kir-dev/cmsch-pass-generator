@@ -58,7 +58,7 @@ export class AppleService {
       fs.rmSync(passPath)
       return passFile
     } catch (e) {
-      Logger.error(e)
+      Logger.error(e, AppleService.name)
       throw new InternalServerErrorException(e)
     }
   }

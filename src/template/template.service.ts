@@ -15,6 +15,10 @@ export class TemplateService {
     this.getTemplatesFromFileSystem().then(importedTemplates => {
       this.templates = importedTemplates
       Logger.log('Templates imported: ' + importedTemplates.length, TemplateService.name)
+      if (importedTemplates.length === 0) {
+        Logger.error('No templates found. Exiting...', TemplateService.name)
+        process.exit(1)
+      }
     })
   }
 
@@ -43,13 +47,13 @@ export class TemplateService {
           const templateData = plainToInstance(Template, { id: subDir, ...passJsonData }, { excludeExtraneousValues: true })
           importedTemplates.push(templateData)
         } catch (err) {
-          Logger.error(`Error reading pass.json in '${subDir}': ${err.message}`)
+          Logger.error(`Error reading pass.json in '${subDir}': ${err.message}`, TemplateService.name)
         }
       }
 
       return importedTemplates
     } catch (err) {
-      Logger.error('Error scanning templates folder:', err.message)
+      Logger.error('Error scanning templates folder:' + err.message, TemplateService.name)
       return []
     }
   }
