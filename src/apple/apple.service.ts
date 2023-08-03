@@ -53,10 +53,7 @@ export class AppleService {
       if (fs.existsSync(icon2Url)) {
         pass.addBuffer('icon@2x.png', fs.readFileSync(icon2Url))
       }
-      const passPath = await this.writePassToFile(pass, passFileName)
-      const passFile = fs.readFileSync(passPath)
-      fs.rmSync(passPath)
-      return passFile
+      return await this.writePassToFile(pass, passFileName)
     } catch (e) {
       Logger.error(e, AppleService.name)
       throw new InternalServerErrorException(e)
