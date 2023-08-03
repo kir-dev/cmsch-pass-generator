@@ -5,9 +5,10 @@ import * as path from 'path'
 @Injectable()
 export class ContentDeliveryService {
   getFileForTemplate(template: string, fileName: string) {
-    if (!fs.existsSync(path.resolve(`../../templates/${template}/${fileName}`))) {
+    const url = path.resolve(__dirname, `../../templates/${template}/${fileName}`)
+    if (!fs.existsSync(url)) {
       throw new NotFoundException()
     }
-    return fs.readFileSync(path.resolve(`../../templates/${template}/${fileName}`))
+    return fs.readFileSync(url)
   }
 }
