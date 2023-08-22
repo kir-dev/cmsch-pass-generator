@@ -35,11 +35,11 @@ export class GoogleService {
         url: `${CLASS_URL}/${classId}`,
         method: 'GET',
       })
-      Logger.log(`Class ${classId} already exists!`, GoogleService.name)
+      Logger.debug(`Class already exists: ${classId}`, GoogleService.name)
       return newClass
     } catch (err) {
       if (err.response && err.response.status !== 404) {
-        Logger.error(err)
+        Logger.error(err, GoogleService.name)
         return newClass
       }
     }
@@ -50,7 +50,7 @@ export class GoogleService {
         data: newClass,
       })
 
-      Logger.log('Class inserted', GoogleService.name)
+      Logger.log(`Class inserted: ${classId}`, GoogleService.name)
     } catch (e) {
       Logger.error(e, GoogleService.name)
     }
@@ -68,12 +68,12 @@ export class GoogleService {
         method: 'GET',
       })
 
-      Logger.log(`Object ${objectId} already exists!`, GoogleService.name)
+      Logger.debug(`Object already exists: ${objectId}`, GoogleService.name)
 
       return newObject
     } catch (err) {
       if (err.response && err.response.status !== 404) {
-        Logger.error(err)
+        Logger.error(err, GoogleService.name)
         return newObject
       }
     }
@@ -85,7 +85,7 @@ export class GoogleService {
         data: newObject,
       })
 
-      Logger.log('Object inserted', GoogleService.name)
+      Logger.log(`Object inserted: ${objectId}`, GoogleService.name)
     } catch (e) {
       Logger.error(e)
     }
