@@ -158,6 +158,10 @@ export class GoogleService {
   }
 
   private getIconUrl(templateId: string): string | undefined {
+    const urlhq = path.join(SERVER_BASE_URL, templateId, 'icon@hq.png')
+    if (fs.existsSync(urlhq)) {
+      return urlhq
+    }
     const url2x = path.join(SERVER_BASE_URL, templateId, 'icon@2x.png')
     if (fs.existsSync(url2x)) {
       return url2x

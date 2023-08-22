@@ -34,16 +34,23 @@ This is a service-account JSON file.
 On how to set up a service account for Google Wallet API,
 please read the [Google Wallet API Prerequisites](https://developers.google.com/wallet/tickets/events/web/prerequisites)
 
+> Attention: Google Wallet API sometimes give back "Service Unavailable" error.
+This might be a problem on Google's side. Until further investigation or fix, please add the class manually on the Google Wallet API console.
+Use the CDN described below for image hosting! On the upside, you can even manage class attributes on the go.
+
 ### Events
 Events can be created by creating folders in the `templates` folder.
 Each event folder should contain the following:
 - `pass.json` - Pass details, such as display name, colors, etc.
 - `icon.png` - 29x29 icon for Apple Wallet and Google Wallet
 - `icon@2x.png` - 58x58 icon for Apple Wallet and Google Wallet (optional, but highly recommended)
+- `icon@hi.png` - High quality square icon for Google Wallet (optional, but highly recommended)
 - `logo.png` - 160x50 logo for Apple Wallet (appears on the top of the pass)
 - `logo@2x.png` - 320x100 logo for Apple Wallet (optional, but highly recommended)
-- `banner.png` - 739x240 banner for Google Wallet (appears on the bottom of the pass)
-The server has a built-in Content Delivery Network (CDN) for images in the templates folder. Therefore, you can reference your images by their folder and name.
+- `banner.png` - (min) 739x240 banner for Google Wallet (appears on the bottom of the pass)
+
+The server has a built-in Content Delivery Network (CDN) for images in the templates folder. Therefore, you can reference your images by their folder and name,
+i.e. `<server_url>/cdn/<event_name>/icon.png`
 
 > Tip: copy the cmsch-event folder and rename it to your event name, replace the details. Therefore, you won't miss any required fields.
 
