@@ -122,6 +122,14 @@ export class GoogleService {
           value: template.name,
         },
       },
+      venue: {
+        name: {
+          defaultValue: {
+            language: 'hu-HU',
+            value: 'Esemény',
+          },
+        },
+      },
       id: classId,
       issuerName: ORG_NAME,
       reviewStatus: 'UNDER_REVIEW',
