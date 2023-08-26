@@ -59,7 +59,7 @@ export class GoogleService {
   }
 
   private async createObject(template: Template, classId: string, userName: string, userId: string) {
-    const objectId = `${ISSUER_ID}.${userId}`
+    const objectId = `${ISSUER_ID}.${template.id}.${userId}`
     const newObject = this.generateObject(template, objectId, classId, userName, userId)
 
     try {
