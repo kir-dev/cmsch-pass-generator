@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common'
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
 
+import { AnalyticsMiddleware } from './analytics/analytics.middleware'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { AppleModule } from './apple/apple.module'
@@ -12,4 +13,8 @@ import { TemplateModule } from './template/template.module'
   imports: [AppleModule, GoogleModule, ContentDeliveryModule, TemplateModule],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): any {
+    consumer.apply(AnalyticsMiddleware).forRoutes({ path: '*', method: RequestMethod.GET })
+  }
+}

@@ -1,10 +1,9 @@
 {
-  "name": "application",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "name": "cmsch-pass-generator",
+  "version": "2.1.0",
+  "description": "Generate passes for both platforms via only a single URL. Create any events by creating only one folder.",
+  "author": "Bálint Berente <balint.berente@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -19,6 +18,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "axios": "^1.5.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
