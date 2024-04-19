@@ -12,8 +12,10 @@ const genFolder = path.resolve(__dirname, '../../gen')
 
 @Injectable()
 export class AppleService {
+  private readonly logger = new Logger(AppleService.name)
+
   async generatePass(template: Template, { name, userId, type }: PassQuery) {
-    Logger.log(`Generating pass for template ${template.name} with type ${type ?? 'eventTicket'}`, AppleService.name)
+    this.logger.log(`Generating pass for template ${template.name} with type ${type ?? 'eventTicket'}`)
     const certs = this.loadCerts()
     const pass = new PKPass({}, certs, this.getPassProps(template, userId))
 
@@ -58,7 +60,7 @@ export class AppleService {
       }
       return await this.writePassToFile(pass, passFileName)
     } catch (e) {
-      Logger.error(e, AppleService.name)
+      this.logger.error(e)
       throw new InternalServerErrorException(e)
     }
   }

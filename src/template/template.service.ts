@@ -9,14 +9,15 @@ const templatesFolderPath = path.join(__dirname, '../../templates')
 
 @Injectable()
 export class TemplateService {
+  private readonly logger = new Logger(TemplateService.name)
   private templates: Template[] = []
 
   constructor() {
     this.getTemplatesFromFileSystem().then(importedTemplates => {
       this.templates = importedTemplates
-      Logger.log('Templates imported: ' + importedTemplates.length, TemplateService.name)
+      this.logger.log('Templates imported: ' + importedTemplates.length)
       if (importedTemplates.length === 0) {
-        Logger.error('No templates found. Exiting...', TemplateService.name)
+        this.logger.error('No templates found. Exiting...')
         process.exit(1)
       }
     })
@@ -47,13 +48,13 @@ export class TemplateService {
           const templateData = plainToInstance(Template, { id: subDir, ...passJsonData }, { excludeExtraneousValues: true })
           importedTemplates.push(templateData)
         } catch (err) {
-          Logger.error(`Error reading pass.json in '${subDir}': ${err.message}`, TemplateService.name)
+          this.logger.error(`Error reading pass.json in '${subDir}': ${err.message}`)
         }
       }
 
       return importedTemplates
     } catch (err) {
-      Logger.error('Error scanning templates folder:' + err.message, TemplateService.name)
+      this.logger.error('Error scanning templates folder:' + err.message)
       return []
     }
   }

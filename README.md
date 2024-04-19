@@ -23,7 +23,14 @@ The `creds` folder should contain the following for Apple Wallet:
 - `signerKey.pem`
 - `wwdr.pem`
 
-On how to obtain these files, please read the 
+For the `signerCert.pem` and `signerKey.pem` files, obtain the _cert.p12_ file, place it into the root directory of the project, and run the following commands:
+```bash
+bash ./generate-pem.sh
+```
+
+For the `wwdr.pem` file, download the **Worldwide Developer Relations - G4** from the [Apple Certificate Authority Portal](https://www.apple.com/certificateauthority/).
+
+For more details on how to obtain these files, please read the 
 [tutorial in the passkit-generator library wiki](https://github.com/alexandercerutti/passkit-generator/wiki/Generating-Certificates)
 #### Google
 Google passes are created via API calls and are accessible with a JSON Web Token.

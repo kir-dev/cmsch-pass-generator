@@ -16,4 +16,5 @@ templates/*
 !templates/schema.json
 gen/
 creds/
+cert.p12
 .env

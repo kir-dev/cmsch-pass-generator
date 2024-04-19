@@ -11,3 +11,6 @@ services:
     volumes:
       - ./templates:/usr/src/app/templates
       - ./creds:/usr/src/app/creds
+networks:
+  default:
+    name: cmsch-pass-generator-network

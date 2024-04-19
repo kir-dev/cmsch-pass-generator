@@ -14,6 +14,7 @@ const OBJECT_URL = `${BASE_URL}/eventTicketObject`
 
 @Injectable()
 export class GoogleService {
+  private readonly logger = new Logger(GoogleService.name)
   private credentials: GoogleCredentials
   private client: GoogleAuth
   constructor() {
@@ -35,11 +36,11 @@ export class GoogleService {
         url: `${CLASS_URL}/${classId}`,
         method: 'GET',
       })
-      Logger.debug(`Class already exists: ${classId}`, GoogleService.name)
+      this.logger.debug(`Class already exists: ${classId}`)
       return newClass
     } catch (err) {
       if (err.response && err.response.status !== 404) {
-        Logger.error(err, GoogleService.name)
+        this.logger.error(err)
         return newClass
       }
     }
@@ -50,9 +51,9 @@ export class GoogleService {
         data: newClass,
       })
 
-      Logger.log(`Class inserted: ${classId}`, GoogleService.name)
+      this.logger.log(`Class inserted: ${classId}`)
     } catch (e) {
-      Logger.error(e, GoogleService.name)
+      this.logger.error(e)
     }
 
     return newClass
@@ -68,12 +69,12 @@ export class GoogleService {
         method: 'GET',
       })
 
-      Logger.debug(`Object already exists: ${objectId}`, GoogleService.name)
+      this.logger.debug(`Object already exists: ${objectId}`)
 
       return newObject
     } catch (err) {
       if (err.response && err.response.status !== 404) {
-        Logger.error(err, GoogleService.name)
+        this.logger.error(err)
         return newObject
       }
     }
@@ -85,9 +86,9 @@ export class GoogleService {
         data: newObject,
       })
 
-      Logger.log(`Object inserted: ${objectId}`, GoogleService.name)
+      this.logger.log(`Object inserted: ${objectId}`)
     } catch (e) {
-      Logger.error(e)
+      this.logger.error(e)
     }
 
     return newObject

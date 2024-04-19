@@ -2,7 +2,6 @@ import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/c
 
 import { AnalyticsMiddleware } from './analytics/analytics.middleware'
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { AppleModule } from './apple/apple.module'
 import { ContentDeliveryModule } from './content-delivery/content-delivery.module'
 import { GoogleModule } from './google/google.module'
@@ -11,7 +10,7 @@ import { TemplateModule } from './template/template.module'
 @Module({
   controllers: [AppController],
   imports: [AppleModule, GoogleModule, ContentDeliveryModule, TemplateModule],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {

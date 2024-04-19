@@ -1,15 +1,11 @@
 import { Controller, Get } from '@nestjs/common'
 
-import { AppService } from './app.service'
 import { TemplateService } from './template/template.service'
 import { ORG_NAME } from './utils/configuration'
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private readonly templateService: TemplateService
-  ) {}
+  constructor(private readonly templateService: TemplateService) {}
 
   @Get('hi')
   getHi() {
