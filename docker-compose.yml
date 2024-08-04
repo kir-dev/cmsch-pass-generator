@@ -1,6 +1,7 @@
 name: 'cmsch-pass-generator'
 services:
   backend:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
